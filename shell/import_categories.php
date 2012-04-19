@@ -168,9 +168,7 @@ class Mage_Shell_ImportCategories extends Mage_Shell_Abstract
                         foreach ($otherStoreCodes as $j => $storeCode) {
                             $label = trim($data[$j]);
                             if (!empty($label)) {
-                                Mage::getModel('catalog/category')
-                                    ->setId($category->getId())
-                                    ->setStoreId($this->_getStore($storeCode)->getId())
+                                $category->setStoreId($this->_getStore($storeCode)->getId())
                                     ->setUrlKey('')
                                     ->setName($label)
                                     ->save();
