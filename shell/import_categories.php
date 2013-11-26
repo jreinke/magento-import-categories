@@ -121,6 +121,11 @@ class Mage_Shell_ImportCategories extends Mage_Shell_Abstract
                 $this->_fault("File $file is not readable.");
             }
 
+            $fh = fopen($file, 'r');
+            if (!$fh) {
+                $this->_fault("An error occured opening file $file.");
+            }
+
             $collection = Mage::getModel('catalog/category')->getCollection()
                 ->addFieldToFilter('level', 2);
             if ($collection->count() > 0) {
@@ -130,11 +135,6 @@ class Mage_Shell_ImportCategories extends Mage_Shell_Abstract
                     $collection->walk('delete');
                     echo 'Deleted old categories' . PHP_EOL;
                 }
-            }
-
-            $fh = fopen($file, 'r');
-            if (!$fh) {
-                $this->_fault("An error occured opening file $file.");
             }
 
             try {
